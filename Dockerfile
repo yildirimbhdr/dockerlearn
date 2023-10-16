@@ -1,5 +1,6 @@
+
 #build stage
-FROM node:18-alpine
+FROM node:18.16.0-alpine
 
 WORKDIR /usr/src/app
 
@@ -12,14 +13,13 @@ COPY . .
 RUN npm run build
 
 #production stage
-FROM node:18-alpine
+FROM node:18.16.0-alpine
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+ENV NODE_ENV=${production}
 
 WORKDIR /usr/src/app
 
-COPY --from=build /usr/src/app/dist ./dist
+COPY /usr/src/app/dist ./dist
 
 COPY package*.json ./
 
